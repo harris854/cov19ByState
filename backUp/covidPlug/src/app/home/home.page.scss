@@ -1,0 +1,57 @@
+#container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10%;
+ // transform: translateY(-50%);
+}
+
+.bottom{
+  position:absolute;
+  bottom:10px;
+  right: 10px;
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+ion-content ion-toolbar {
+  --background: translucent;
+}
+
+.ncov{
+  color: #d24627;
+  font-size: large;
+  margin-right: 20px;
+}
+
+#select2Builder{
+  width: 250px !important;
+  outline: none !important;
+}
+
+.chipDec{
+  font-family: WorkSans-SemiBold;
+  font-size: large;
+}
+
+ion-chip{
+  height: 40px;
+  border-radius: 5px !important;
+}
