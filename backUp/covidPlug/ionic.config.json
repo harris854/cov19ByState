@@ -1,7 +1,0 @@
-{
-  "name": "covidPlug",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
