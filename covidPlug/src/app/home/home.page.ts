@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import * as Papa from 'papaparse';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { DataServiceService } from '../services/data-service.service';
+import * as Chart from 'chart.js';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,7 @@ import { DataServiceService } from '../services/data-service.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+  @ViewChild('trendyChart', {static: false }) trendyChart: ElementRef;
   public covidTitle = 'BY STATES';
   public stateDataWithUiData: any = {};
   public totalDataSet: any = {};
@@ -38,6 +40,14 @@ export class HomePage implements OnInit {
     } else {
       this.totalDataSet = this.dService.totalDataSet;
     }
+    // build chart using this data
+    const graphData = this.dService.prepareLineData(this.totalDataSet);
+    if (states) {
+      graphData.name = states;
+    } else {
+      graphData.name = 'USA';
+    }
+    this.dService.buildBarChart(this.trendyChart, graphData);
   }
 
 }

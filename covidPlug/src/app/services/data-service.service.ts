@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as Papa from 'papaparse';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import * as Chart from 'chart.js';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,7 +15,8 @@ export class DataServiceService {
     totalDeaths: 0,
     time30data: [],
   };
-  public menuData: any = [{id: '', text: 'Select a State'}];
+  public menuData: any = [{ id: '', text: 'Select a State' }];
+  public barChart: any = {};
 
   constructor() {}
 
@@ -56,7 +58,7 @@ export class DataServiceService {
         totalCases: revArr[0].case,
         totalDeaths: revArr[0].death,
         time30data: _.slice(revArr, 0, 30),
-        date: revArr[0].date.format('YYYY-MM-DD')
+        date: revArr[0].date.format('YYYY-MM-DD'),
       };
       this.totalDataSet.totalCases += revArr[0].case;
       this.totalDataSet.totalDeaths += revArr[0].death;
@@ -89,4 +91,87 @@ export class DataServiceService {
     };
     return retObj;
   }
+
+  public prepareLineData(data) {
+    const retObj: any = {
+      label: [],
+      dataCase: [],
+      dataDeath: [],
+    };
+    _.each(_.slice(data.time30data, 0, 7).reverse(), (val) => {
+      console.log(val);
+      retObj.label.push(val.date.format('MM-DD'));
+      retObj.dataCase.push(val.case);
+      retObj.dataDeath.push(val.death);
+    });
+    return retObj;
+  }
+
+  public buildBarChart(barCanvas: any, dataSet: any) {
+    let c = null;
+    if (this.barChart[barCanvas.nativeElement.id]) {
+      this.barChart[barCanvas.nativeElement.id].destroy();
+    }
+    c = new Chart(barCanvas.nativeElement, {
+      type: 'line',
+      data: {
+        labels: dataSet.label,
+        datasets: [
+          {
+            label: 'Total Cases',
+            backgroundColor: '#3dc2ff',
+            borderColor: '#3dc2ff',
+            data: dataSet.dataCase,
+            fill: false,
+            yAxisID: 'first-y-axis'
+          },
+          {
+            label: 'Total Deaths',
+            fill: false,
+            backgroundColor: '#eb445a',
+            borderColor: '#eb445a',
+            data: dataSet.dataDeath,
+            yAxisID: 'second-y-axis'
+          },
+        ],
+      },
+    options: {
+      scales: {
+          yAxes: [{
+              id: 'first-y-axis',
+              type: 'linear',
+              position: 'left',
+              ticks: {
+                beginAtZero: false,
+                autoSkip: false,
+                fontColor: '#3dc2ff',
+            },
+            gridLines: {
+              display: false
+          }
+          }, {
+              id: 'second-y-axis',
+              type: 'linear',
+              position: 'right',
+              ticks: {
+                beginAtZero: false,
+                autoSkip: false,
+                fontColor: '#eb445a'
+            },
+            gridLines: {
+              display: false
+          }
+          }]
+      }
+  }
+    });
+    this.barChart[barCanvas.nativeElement.id] = c;
+  }
+
+  private randomScalingFactor() {
+    return Math.random() * 10;
+   }
+
 }
+
+

@@ -9,7 +9,7 @@
 
 .bottom{
   position:absolute;
-  bottom:10px;
+  top:11%;
   right: 10px;
 }
 
@@ -39,6 +39,14 @@ ion-content ion-toolbar {
   color: #d24627;
   font-size: large;
   margin-right: 20px;
+}
+
+.source{
+  font-size: small;
+  position: absolute;
+  right:20px;
+  top:10px;
+  color: '#92949c' !important;
 }
 
 #select2Builder{

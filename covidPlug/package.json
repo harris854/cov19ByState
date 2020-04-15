@@ -28,6 +28,7 @@
     "@ionic/angular": "^5.0.0",
     "@types/jquery": "^3.3.34",
     "@types/select2": "^4.0.44",
+    "chart.js": "^2.9.3",
     "cordova-plugin-advanced-http": "^2.4.1",
     "core-js": "^2.5.4",
     "jquery": "^3.5.0",
