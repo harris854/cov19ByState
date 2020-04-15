@@ -80,6 +80,7 @@ export class DataServiceService {
         text: key,
       });
     });
+    this.menuData = _.orderBy(this.menuData, 'id');
   }
 
   private craftObj(obj): any {
@@ -98,8 +99,7 @@ export class DataServiceService {
       dataCase: [],
       dataDeath: [],
     };
-    _.each(_.slice(data.time30data, 0, 7).reverse(), (val) => {
-      console.log(val);
+    _.each(_.slice(data.time30data, 0, 30).reverse(), (val) => {
       retObj.label.push(val.date.format('MM-DD'));
       retObj.dataCase.push(val.case);
       retObj.dataDeath.push(val.death);
