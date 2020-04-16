@@ -136,6 +136,10 @@ export class DataServiceService {
         ],
       },
     options: {
+      legend: {
+        display: true,
+        position: 'bottom',
+      },
       scales: {
           yAxes: [{
               id: 'first-y-axis',
