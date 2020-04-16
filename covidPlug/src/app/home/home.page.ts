@@ -6,48 +6,68 @@ import { DataServiceService } from '../services/data-service.service';
 import * as Chart from 'chart.js';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+	selector: 'app-home',
+	templateUrl: 'home.page.html',
+	styleUrls: [ 'home.page.scss' ]
 })
 export class HomePage implements OnInit {
-  @ViewChild('trendyChart', {static: false }) trendyChart: ElementRef;
-  public covidTitle = 'BY STATES';
-  public stateDataWithUiData: any = {};
-  public totalDataSet: any = {};
-  public menuData: any;
+	@ViewChild('trendyChart', { static: false })
+	trendyChart: ElementRef;
+	public stateDataWithUiData: any = {};
+	public totalDataSet: any = {};
+	public menuData: any;
+	public dateData: any;
+	public selectedDateRange: number;
 
+	public sel2Options = {
+		placeholder: 'Total - Select any state.'
+	};
 
-  public sel2Options = {
-    placeholder: 'Select a state'
-  };
+	public selectDates = {
+		placeholder: 'Select date range'
+	};
 
-  constructor(private dService: DataServiceService) {}
+	constructor(private dService: DataServiceService) {}
 
-  async ngOnInit() {
-    await this.dService.fetchData();
-    this.dispBucket();
-    this.menuData = this.dService.menuData;
-  }
+	async ngOnInit() {
+		await this.dService.fetchData();
+		this.dispBucket();
+		this.menuData = this.dService.menuData;
+		this.dateData = this.dService.timeToDisplay;
 
-  public onSelected(val) {
-    this.dispBucket(val.value);
-  }
+		console.log(this.dateData);
+	}
 
-  dispBucket(states?: string) {
-    if (states) {
-      this.totalDataSet = this.dService.stateDataWithUiData[states];
-    } else {
-      this.totalDataSet = this.dService.totalDataSet;
-    }
-    // build chart using this data
-    const graphData = this.dService.prepareLineData(this.totalDataSet);
-    if (states) {
-      graphData.name = states;
-    } else {
-      graphData.name = 'USA';
-    }
-    this.dService.buildBarChart(this.trendyChart, graphData);
-  }
+	public onSelected(val) {
+		this.dispBucket(val.value);
+	}
 
+	public onDateChanged(val) {
+		this.changeDataWithTime(val.value);
+	}
+
+	dispBucket(states?: string) {
+		if (states) {
+			console.log(states);
+			this.totalDataSet = this.dService.stateDataWithUiData[states];
+		} else {
+			this.totalDataSet = this.dService.totalDataSet;
+		}
+		// build chart using this data
+		const graphData = this.dService.prepareLineData(this.totalDataSet, this.selectedDateRange);
+		if (states) {
+			graphData.name = states;
+		} else {
+			graphData.name = 'USA';
+		}
+		this.dService.buildBarChart(this.trendyChart, graphData);
+	}
+
+	changeDataWithTime(selectedDays?: number) {
+		this.selectedDateRange = selectedDays;
+		console.log('Days selected ' + selectedDays);
+		console.log('Parsed Data ' + this.dService.parsedDataSrc);
+
+		this.dService.buildBarChart(this.trendyChart, this.dService.prepareLineData(this.totalDataSet, selectedDays));
+	}
 }
