@@ -8,6 +8,8 @@
         <span class="ncov">ncov19</span>
         <select2 (valueChanged)="onSelected($event)" width="25%" [data]="menuData" [cssImport]=true
           [options]="sel2Options"></select2>
+          <select2 (valueChanged)="onDateChanged($event)" width="25%" [data]="dateData" [cssImport]=true
+          [options]="selectDates"></select2>
       </div>
       <div class="source">data source:<a href="https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html">
           NyTimes</a><br>
@@ -18,6 +20,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <br>
+  <br>
   <div id="container">
     <ion-chip class="chipDec">
       <ion-label color="secondary">Infected: {{totalDataSet.totalCases | number:'2.'}}</ion-label>
