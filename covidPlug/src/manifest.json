@@ -1,12 +1,12 @@
 {
     "name": "covid19Data",
-    "version": "1.0",
-    "description": "Track Trend By States",
+    "version": "1.0.2",
+    "description": "Track trend of infection and death by US states",
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; object-src 'self'",
     "browser_action": {
       "default_popup": "index.html",
       "default_icon": "assets/icon/favicon.png"
     },
-    "permissions": ["<all_urls>"],
+    "permissions": ["http://raw.githubusercontent.com/"],
     "manifest_version": 2
   }
