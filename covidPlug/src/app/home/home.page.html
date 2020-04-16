@@ -1,15 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="light" style="display:flex">
     <ion-title>
-<<<<<<< HEAD
-      <select2 (valueChanged)="onSelected($event)" width="25%" [data]="menuData" [cssImport]=true
-        [options]="sel2Options"></select2>
-        Date Range : 
-        <select2 (valueChanged)="onDateChanged($event)" width="25%" [data]="dateData" [cssImport]=true
-        [options]="selectDates"></select2>
-      <div class="source"><a href="https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html">Source
-          NyTimes</a>
-=======
       <div class="logoIcon">
         <img height=50px src="assets/covidL.png">
       </div>
@@ -17,11 +8,12 @@
         <span class="ncov">ncov19</span>
         <select2 (valueChanged)="onSelected($event)" width="25%" [data]="menuData" [cssImport]=true
           [options]="sel2Options"></select2>
+          <select2 (valueChanged)="onDateChanged($event)" width="25%" [data]="dateData" [cssImport]=true
+        [options]="selectDates"></select2>
       </div>
       <div class="source">data source:<a href="https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html">
           NyTimes</a><br>
           data fetched: {{totalDataSet.date}}
->>>>>>> 8db424ab97e7915fb9db322cf8a6211b88d1b1a1
       </div>
     </ion-title>
   </ion-toolbar>
