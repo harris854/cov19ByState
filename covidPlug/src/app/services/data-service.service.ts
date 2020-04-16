@@ -87,7 +87,7 @@ export class DataServiceService {
 				text: key
 			});
 		});
-
+		this.menuData = _.orderBy(this.menuData, 'id');
 		this.timeToDisplay.push({
 			id: this.menuData.length,
 			text: 'All time data (' + this.menuData.length + ' days)'
