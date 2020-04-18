@@ -21,8 +21,7 @@ export class DataServiceService {
 
 	public timeToDisplay: any = [
 		{ id: '', text: 'Select date range' },
-		{ id: 3, text: 'Last 3 Days' },
-		{ id: 7, text: 'Last Week' },
+		{ id: 7, text: 'Last 7 Days' },
 		{ id: 15, text: 'Last 15 Days' },
 		{ id: 30, text: 'Last 30 Days' }
 	];
@@ -89,7 +88,7 @@ export class DataServiceService {
 		});
 		this.menuData = _.orderBy(this.menuData, 'id');
 		this.menuData.unshift({id: 'USA', text: 'USA'});
-		this.menuData.unshift({ id: '', text: 'Select a States' });
+		this.menuData.unshift({ id: '', text: 'Select a State' });
 		this.timeToDisplay.push({
 			id: this.menuData.length,
 			text: 'All time data (' + this.menuData.length + ' days)'
@@ -107,7 +106,7 @@ export class DataServiceService {
 	}
 
 	public prepareLineData(data, noOfDays) {
-		if (noOfDays < this.defaultTimeToDisplay) {
+		if (!noOfDays) {
 			noOfDays = this.defaultTimeToDisplay;
 		}
 		const retObj: any = {
@@ -183,7 +182,17 @@ export class DataServiceService {
 								display: false
 							}
 						}
-					]
+					],
+					xAxes: [{
+						type: 'time',
+						ticks: {
+							autoSkip: true,
+							maxTicksLimit: 15
+						},
+						time: {
+							unit: 'day'
+					}
+					}]
 				},
 				legend: {
 					display: true,

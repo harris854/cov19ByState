@@ -20,11 +20,11 @@ export class HomePage implements OnInit {
 	public selectedDateRange: number;
 
 	public sel2Options = {
-		placeholder: 'Select any state.'
+		placeholder: 'Select state'
 	};
 
 	public selectDates = {
-		placeholder: 'Select date range'
+		placeholder: 'Select date'
 	};
 
 	constructor(private dService: DataServiceService) {}
