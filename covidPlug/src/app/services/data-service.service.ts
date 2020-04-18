@@ -16,18 +16,17 @@ export class DataServiceService {
 		allTimeData: []
 	};
 
-	public menuData: any = [ { id: '', text: 'Select a States' } ];
+	public menuData: any = [];
 	public barChart: any = {};
 
 	public timeToDisplay: any = [
 		{ id: '', text: 'Select date range' },
-		{ id: 3, text: 'Last 3 Days' },
-		{ id: 7, text: 'Last Week' },
+		{ id: 7, text: 'Last 7 Days' },
 		{ id: 15, text: 'Last 15 Days' },
 		{ id: 30, text: 'Last 30 Days' }
 	];
 
-	public defaultTimeToDisplay: number = 3;
+	public defaultTimeToDisplay: number = 30;
 
 	constructor() {}
 
@@ -88,6 +87,8 @@ export class DataServiceService {
 			});
 		});
 		this.menuData = _.orderBy(this.menuData, 'id');
+		this.menuData.unshift({id: 'USA', text: 'USA'});
+		this.menuData.unshift({ id: '', text: 'Select a State' });
 		this.timeToDisplay.push({
 			id: this.menuData.length,
 			text: 'All time data (' + this.menuData.length + ' days)'
@@ -105,7 +106,7 @@ export class DataServiceService {
 	}
 
 	public prepareLineData(data, noOfDays) {
-		if (noOfDays < this.defaultTimeToDisplay) {
+		if (!noOfDays) {
 			noOfDays = this.defaultTimeToDisplay;
 		}
 		const retObj: any = {
@@ -144,8 +145,8 @@ export class DataServiceService {
 					{
 						label: 'Total Deaths',
 						fill: false,
-						backgroundColor: '#eb445a',
-						borderColor: '#eb445a',
+						backgroundColor: '#ffd534',
+						borderColor: '#ffd534',
 						data: dataSet.dataDeath,
 						yAxisID: 'second-y-axis',
 						fontSize: 20
@@ -175,19 +176,29 @@ export class DataServiceService {
 							ticks: {
 								beginAtZero: false,
 								autoSkip: false,
-								fontColor: '#eb445a'
+								fontColor: '#ffd534'
 							},
 							gridLines: {
 								display: false
 							}
 						}
-					]
+					],
+					xAxes: [{
+						type: 'time',
+						ticks: {
+							autoSkip: true,
+							maxTicksLimit: 15
+						},
+						time: {
+							unit: 'day'
+					}
+					}]
 				},
 				legend: {
 					display: true,
-					position: 'top',
+					position: 'bottom',
 					labels: {
-						fontColor: 'rgb(255, 99, 132)'
+						fontColor: '#2fdf75'
 					}
 				},
 				tooltips: {
