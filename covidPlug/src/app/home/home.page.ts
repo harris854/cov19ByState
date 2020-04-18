@@ -20,7 +20,7 @@ export class HomePage implements OnInit {
 	public selectedDateRange: number;
 
 	public sel2Options = {
-		placeholder: 'Total - Select any state.'
+		placeholder: 'Select any state.'
 	};
 
 	public selectDates = {
@@ -39,7 +39,12 @@ export class HomePage implements OnInit {
 	}
 
 	public onSelected(val) {
-		this.dispBucket(val.value);
+		if(val.value !== 'USA'){
+			this.dispBucket(val.value);
+		}else{
+			this.dispBucket();
+		}
+
 	}
 
 	public onDateChanged(val) {

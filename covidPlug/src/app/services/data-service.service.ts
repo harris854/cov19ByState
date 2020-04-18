@@ -16,7 +16,7 @@ export class DataServiceService {
 		allTimeData: []
 	};
 
-	public menuData: any = [ { id: '', text: 'Select a States' } ];
+	public menuData: any = [];
 	public barChart: any = {};
 
 	public timeToDisplay: any = [
@@ -27,7 +27,7 @@ export class DataServiceService {
 		{ id: 30, text: 'Last 30 Days' }
 	];
 
-	public defaultTimeToDisplay: number = 3;
+	public defaultTimeToDisplay: number = 30;
 
 	constructor() {}
 
@@ -88,6 +88,8 @@ export class DataServiceService {
 			});
 		});
 		this.menuData = _.orderBy(this.menuData, 'id');
+		this.menuData.unshift({id: 'USA', text: 'USA'});
+		this.menuData.unshift({ id: '', text: 'Select a States' });
 		this.timeToDisplay.push({
 			id: this.menuData.length,
 			text: 'All time data (' + this.menuData.length + ' days)'
@@ -144,8 +146,8 @@ export class DataServiceService {
 					{
 						label: 'Total Deaths',
 						fill: false,
-						backgroundColor: '#eb445a',
-						borderColor: '#eb445a',
+						backgroundColor: '#ffd534',
+						borderColor: '#ffd534',
 						data: dataSet.dataDeath,
 						yAxisID: 'second-y-axis',
 						fontSize: 20
@@ -175,7 +177,7 @@ export class DataServiceService {
 							ticks: {
 								beginAtZero: false,
 								autoSkip: false,
-								fontColor: '#eb445a'
+								fontColor: '#ffd534'
 							},
 							gridLines: {
 								display: false
@@ -185,9 +187,9 @@ export class DataServiceService {
 				},
 				legend: {
 					display: true,
-					position: 'top',
+					position: 'bottom',
 					labels: {
-						fontColor: 'rgb(255, 99, 132)'
+						fontColor: '#2fdf75'
 					}
 				},
 				tooltips: {
