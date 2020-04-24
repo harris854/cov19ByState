@@ -18,6 +18,8 @@ export class HomePage implements OnInit {
 	public menuData: any;
 	public dateData: any;
 	public selectedDateRange: number;
+	public selectedDropLabel = 'Last 30 days';
+	public selectedState = 'USA';
 
 	public sel2Options = {
 		placeholder: 'Select state'
@@ -34,11 +36,18 @@ export class HomePage implements OnInit {
 		this.dispBucket();
 		this.menuData = this.dService.menuData;
 		this.dateData = this.dService.timeToDisplay;
+	}
 
-		console.log(this.dateData);
+	ionViewWillEnter(){
+		this.selectedState = 'USA';
+		this.selectedDropLabel= 'Last 30 days';
 	}
 
 	public onSelected(val) {
+		this.selectedState = val.value;
+		if(!this.selectedState){
+			this.selectedState = 'USA';
+		}
 		if(val.value !== 'USA'){
 			this.dispBucket(val.value);
 		}else{
@@ -48,12 +57,12 @@ export class HomePage implements OnInit {
 	}
 
 	public onDateChanged(val) {
+		this.selectedDropLabel = val.data[0].text;
 		this.changeDataWithTime(val.value);
 	}
 
 	dispBucket(states?: string) {
 		if (states) {
-			console.log(states);
 			this.totalDataSet = this.dService.stateDataWithUiData[states];
 		} else {
 			this.totalDataSet = this.dService.totalDataSet;
@@ -70,9 +79,6 @@ export class HomePage implements OnInit {
 
 	changeDataWithTime(selectedDays?: number) {
 		this.selectedDateRange = selectedDays;
-		console.log('Days selected ' + selectedDays);
-		console.log('Parsed Data ' + this.dService.parsedDataSrc);
-
 		this.dService.buildBarChart(this.trendyChart, this.dService.prepareLineData(this.totalDataSet, selectedDays));
 	}
 }

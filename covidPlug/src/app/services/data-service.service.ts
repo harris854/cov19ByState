@@ -28,7 +28,7 @@ export class DataServiceService {
 
 	public defaultTimeToDisplay: number = 30;
 
-	constructor() {}
+	constructor() { }
 
 	public fetchData() {
 		return new Promise((resolve, reject) => {
@@ -50,7 +50,7 @@ export class DataServiceService {
 				if (this.parsedDataSrc[val[1]]) {
 					this.parsedDataSrc[val[1]].push(this.craftObj(val));
 				} else {
-					this.parsedDataSrc[val[1]] = [ this.craftObj(val) ];
+					this.parsedDataSrc[val[1]] = [this.craftObj(val)];
 				}
 			}
 		});
@@ -87,7 +87,7 @@ export class DataServiceService {
 			});
 		});
 		this.menuData = _.orderBy(this.menuData, 'id');
-		this.menuData.unshift({id: 'USA', text: 'USA'});
+		this.menuData.unshift({ id: 'USA', text: 'USA' });
 		this.menuData.unshift({ id: '', text: 'Select a State' });
 		this.timeToDisplay.push({
 			id: this.menuData.length,
@@ -115,7 +115,6 @@ export class DataServiceService {
 			dataDeath: []
 		};
 		_.each(_.slice(data.allTimeData, 0, noOfDays).reverse(), (val) => {
-			console.log(val);
 			retObj.label.push(val.date.format('MM-DD'));
 			retObj.dataCase.push(val.case);
 			retObj.dataDeath.push(val.death);
@@ -163,7 +162,11 @@ export class DataServiceService {
 							ticks: {
 								beginAtZero: false,
 								autoSkip: false,
-								fontColor: '#3dc2ff'
+								fontColor: '#3dc2ff',
+								fontStyle: 'bold',
+								userCallback: function(value, index, values) {
+									return value.toLocaleString();   // this is all we need
+								}
 							},
 							gridLines: {
 								display: false
@@ -176,7 +179,11 @@ export class DataServiceService {
 							ticks: {
 								beginAtZero: false,
 								autoSkip: false,
-								fontColor: '#ffd534'
+								fontColor: '#ffd534',
+								fontStyle: 'bold', 
+								userCallback: function(value, index, values) {
+									return value.toLocaleString();   // this is all we need
+								}
 							},
 							gridLines: {
 								display: false
@@ -187,11 +194,13 @@ export class DataServiceService {
 						type: 'time',
 						ticks: {
 							autoSkip: true,
-							maxTicksLimit: 15
+							maxTicksLimit: 15,
+							fontStyle: 'bold',
+							fontSize: 11
 						},
 						time: {
 							unit: 'day'
-					}
+						}
 					}]
 				},
 				legend: {
@@ -201,19 +210,9 @@ export class DataServiceService {
 						fontColor: '#2fdf75'
 					}
 				},
-				tooltips: {
-					position: 'nearest',
-					backgroundColor: 'black',
-					titleFontSize: 18,
-					fontColor: 'green',
-					mode: 'nearest'
-				}
 			}
 		});
 		this.barChart[barCanvas.nativeElement.id] = c;
 	}
 
-	private randomScalingFactor() {
-		return Math.random() * 10;
-	}
 }

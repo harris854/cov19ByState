@@ -29,6 +29,9 @@
     <ion-chip class="chipDec">
       <ion-label color="warning">Death: {{totalDataSet.totalDeaths | number:'2.'}}</ion-label>
     </ion-chip>
+    <ion-chip class="chipDec" style="float:right">
+      <ion-label color="light">{{selectedState}} / {{selectedDropLabel}}</ion-label>
+    </ion-chip>
   </div>
   <div style="margin-top:30px">
     <canvas #trendyChart id="trendyChart"></canvas>
