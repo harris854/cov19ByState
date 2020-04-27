@@ -20,7 +20,7 @@ export class DataServiceService {
 	public barChart: any = {};
 
 	public timeToDisplay: any = [
-		{ id: '', text: 'Select date range' },
+		{ id: '', text: 'Select date' },
 		{ id: 7, text: 'Last 7 Days' },
 		{ id: 15, text: 'Last 15 Days' },
 		{ id: 30, text: 'Last 30 Days' }

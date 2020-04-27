@@ -45,7 +45,7 @@ export class HomePage implements OnInit {
 
 	public onSelected(val) {
 		this.selectedState = val.value;
-		if(!this.selectedState){
+		if(this.selectedState = "Select state"){
 			this.selectedState = 'USA';
 		}
 		if(val.value !== 'USA'){
@@ -58,6 +58,9 @@ export class HomePage implements OnInit {
 
 	public onDateChanged(val) {
 		this.selectedDropLabel = val.data[0].text;
+		if(this.selectedDropLabel === 'Select Date'){
+			this.selectedDropLabel = 'Last 30 days';
+		}
 		this.changeDataWithTime(val.value);
 	}
 
