@@ -90,8 +90,8 @@ export class DataServiceService {
 		this.menuData.unshift({id: 'USA', text: 'USA'});
 		this.menuData.unshift({ id: '', text: 'Select a State' });
 		this.timeToDisplay.push({
-			id: this.menuData.length,
-			text: 'All time data (' + this.menuData.length + ' days)'
+			id: this.totalDataSet.allTimeData.length,
+			text: 'All time data (' + this.totalDataSet.allTimeData.length + ' days)'
 		});
 	}
 
@@ -127,6 +127,9 @@ export class DataServiceService {
 		let c = null;
 		if (this.barChart[barCanvas.nativeElement.id]) {
 			this.barChart[barCanvas.nativeElement.id].destroy();
+		}
+		if(!dataSet.name){
+			dataSet.name='USA';
 		}
 		c = new Chart(barCanvas.nativeElement, {
 			type: 'line',
@@ -207,6 +210,10 @@ export class DataServiceService {
 					titleFontSize: 18,
 					fontColor: 'green',
 					mode: 'nearest'
+				},
+				title: {
+					display: true,
+					text: dataSet.name
 				}
 			}
 		});

@@ -18,6 +18,7 @@ export class HomePage implements OnInit {
 	public menuData: any;
 	public dateData: any;
 	public selectedDateRange: number;
+	private currentGraphTitle:string;
 
 	public sel2Options = {
 		placeholder: 'Select state'
@@ -34,7 +35,7 @@ export class HomePage implements OnInit {
 		this.dispBucket();
 		this.menuData = this.dService.menuData;
 		this.dateData = this.dService.timeToDisplay;
-
+		this.currentGraphTitle='USA'
 		console.log(this.dateData);
 	}
 
@@ -55,16 +56,14 @@ export class HomePage implements OnInit {
 		if (states) {
 			console.log(states);
 			this.totalDataSet = this.dService.stateDataWithUiData[states];
+			this.currentGraphTitle=states;
 		} else {
 			this.totalDataSet = this.dService.totalDataSet;
+			this.currentGraphTitle='USA';
 		}
 		// build chart using this data
 		const graphData = this.dService.prepareLineData(this.totalDataSet, this.selectedDateRange);
-		if (states) {
-			graphData.name = states;
-		} else {
-			graphData.name = 'USA';
-		}
+		graphData.name = this.currentGraphTitle;
 		this.dService.buildBarChart(this.trendyChart, graphData);
 	}
 
@@ -72,7 +71,8 @@ export class HomePage implements OnInit {
 		this.selectedDateRange = selectedDays;
 		console.log('Days selected ' + selectedDays);
 		console.log('Parsed Data ' + this.dService.parsedDataSrc);
-
-		this.dService.buildBarChart(this.trendyChart, this.dService.prepareLineData(this.totalDataSet, selectedDays));
+		const graphData = this.dService.prepareLineData(this.totalDataSet, selectedDays);
+		graphData.name = this.currentGraphTitle;
+		this.dService.buildBarChart(this.trendyChart, graphData);
 	}
 }
