@@ -72,11 +72,6 @@ export class HomePage implements OnInit {
 		}
 		// build chart using this data
 		const graphData = this.dService.prepareLineData(this.totalDataSet, this.selectedDateRange);
-		if (states) {
-			graphData.name = states;
-		} else {
-			graphData.name = 'USA';
-		}
 		this.dService.buildBarChart(this.trendyChart, graphData);
 	}
 
