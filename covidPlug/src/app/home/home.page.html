@@ -13,7 +13,7 @@
       </div>
       <div class="source">data source:<a href="https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html">
           NyTimes</a><br>
-          data fetched: {{totalDataSet.date}}
+          Data fetched: {{totalDataSet.date}}
       </div>
     </ion-title>
   </ion-toolbar>
@@ -28,6 +28,9 @@
     </ion-chip>
     <ion-chip class="chipDec">
       <ion-label color="warning">Death: {{totalDataSet.totalDeaths | number:'2.'}}</ion-label>
+    </ion-chip>
+    <ion-chip class="chipDec" style="float:right">
+      <ion-label color="light">{{selectedState}} / {{selectedDropLabel}}</ion-label>
     </ion-chip>
   </div>
   <div style="margin-top:30px">
