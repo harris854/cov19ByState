@@ -58,7 +58,7 @@ export class HomePage implements OnInit {
 
 	public onDateChanged(val) {
 		this.selectedDropLabel = val.data[0].text;
-		if(this.selectedDropLabel === 'Select Date'){
+		if(this.selectedDropLabel === 'Select date'){
 			this.selectedDropLabel = 'Last 30 days';
 		}
 		this.changeDataWithTime(val.value);
