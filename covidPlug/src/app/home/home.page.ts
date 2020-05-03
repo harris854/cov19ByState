@@ -18,7 +18,8 @@ export class HomePage implements OnInit {
 	public menuData: any;
 	public dateData: any;
 	public selectedDateRange: number;
-	private currentGraphTitle:string;
+	public selectedDropLabel = 'Last 30 days';
+	public selectedState = 'USA';
 
 	public sel2Options = {
 		placeholder: 'Select state'
@@ -35,11 +36,18 @@ export class HomePage implements OnInit {
 		this.dispBucket();
 		this.menuData = this.dService.menuData;
 		this.dateData = this.dService.timeToDisplay;
-		this.currentGraphTitle='USA'
-		console.log(this.dateData);
+	}
+
+	ionViewWillEnter(){
+		this.selectedState = 'USA';
+		this.selectedDropLabel= 'Last 30 days';
 	}
 
 	public onSelected(val) {
+		this.selectedState = val.value;
+		if(this.selectedState = "Select state"){
+			this.selectedState = 'USA';
+		}
 		if(val.value !== 'USA'){
 			this.dispBucket(val.value);
 		}else{
@@ -49,32 +57,26 @@ export class HomePage implements OnInit {
 	}
 
 	public onDateChanged(val) {
+		this.selectedDropLabel = val.data[0].text;
+		if(this.selectedDropLabel === 'Select date'){
+			this.selectedDropLabel = 'Last 30 days';
+		}
 		this.changeDataWithTime(val.value);
 	}
 
 	dispBucket(states?: string) {
 		if (states) {
-			console.log(states);
 			this.totalDataSet = this.dService.stateDataWithUiData[states];
-			this.currentGraphTitle=states;
 		} else {
 			this.totalDataSet = this.dService.totalDataSet;
-			this.currentGraphTitle='USA';
 		}
 		// build chart using this data
 		const graphData = this.dService.prepareLineData(this.totalDataSet, this.selectedDateRange);
-		graphData.name = this.currentGraphTitle + '('+graphData.label.length+' days)';
 		this.dService.buildBarChart(this.trendyChart, graphData);
 	}
 
 	changeDataWithTime(selectedDays?: number) {
 		this.selectedDateRange = selectedDays;
-		console.log('Days selected ' + selectedDays);
-		console.log('Parsed Data ' + this.dService.parsedDataSrc);
-		const graphData = this.dService.prepareLineData(this.totalDataSet, selectedDays);
-		graphData.name = this.currentGraphTitle + '('+graphData.label.length+' days)';
-		this.totalDataSet.totalCases=graphData.totalCases;
-		this.totalDataSet.totalDeaths=graphData.totalDeaths;
-		this.dService.buildBarChart(this.trendyChart, graphData);
+		this.dService.buildBarChart(this.trendyChart, this.dService.prepareLineData(this.totalDataSet, selectedDays));
 	}
 }
