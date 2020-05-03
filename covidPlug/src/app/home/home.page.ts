@@ -63,7 +63,7 @@ export class HomePage implements OnInit {
 		}
 		// build chart using this data
 		const graphData = this.dService.prepareLineData(this.totalDataSet, this.selectedDateRange);
-		graphData.name = this.currentGraphTitle;
+		graphData.name = this.currentGraphTitle + '('+graphData.label.length+' days)';
 		this.dService.buildBarChart(this.trendyChart, graphData);
 	}
 
@@ -72,7 +72,9 @@ export class HomePage implements OnInit {
 		console.log('Days selected ' + selectedDays);
 		console.log('Parsed Data ' + this.dService.parsedDataSrc);
 		const graphData = this.dService.prepareLineData(this.totalDataSet, selectedDays);
-		graphData.name = this.currentGraphTitle;
+		graphData.name = this.currentGraphTitle + '('+graphData.label.length+' days)';
+		this.totalDataSet.totalCases=graphData.totalCases;
+		this.totalDataSet.totalDeaths=graphData.totalDeaths;
 		this.dService.buildBarChart(this.trendyChart, graphData);
 	}
 }

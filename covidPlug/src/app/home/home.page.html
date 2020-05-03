@@ -1,36 +1,33 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="dark" style="display:flex">
-    <ion-title>
-      <div class="logoIcon">
-        <img height=50px src="assets/covidL.png">
-      </div>
-      <div class="labelStyle">
-        <span class="ncov">ncov19</span>
-        <select2 (valueChanged)="onSelected($event)" width="25%" [data]="menuData" [cssImport]=true
-          [options]="sel2Options"></select2>
-          <select2 style='margin-left:10px' (valueChanged)="onDateChanged($event)" width="25%" [data]="dateData" [cssImport]=true
-          [options]="selectDates"></select2>
-      </div>
-      <div class="source">data source:<a href="https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html">
-          NyTimes</a><br>
-          data fetched: {{totalDataSet.date}}
-      </div>
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="dark" style="display:flex">
+        <ion-title>
+            <div class="logoIcon">
+                <img height=50px src="assets/covidL.png">
+            </div>
+            <div class="labelStyle">
+                <span class="ncov">ncov19</span>
+                <select2 (valueChanged)="onSelected($event)" width="25%" [data]="menuData" [cssImport]=true [options]="sel2Options"></select2>
+                <select2 style='margin-left:10px' (valueChanged)="onDateChanged($event)" width="25%" [data]="dateData" [cssImport]=true [options]="selectDates"></select2>
+            </div>
+            <div class="source">data source:<a href="https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html">
+          NyTimes</a><br> data fetched: {{totalDataSet.date}}
+            </div>
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="medium">
-  <br>
-  <br>
-  <div id="container">
-    <ion-chip class="chipDec">
-      <ion-label color="secondary">Infected: {{totalDataSet.totalCases | number:'2.'}}</ion-label>
-    </ion-chip>
-    <ion-chip class="chipDec">
-      <ion-label color="warning">Death: {{totalDataSet.totalDeaths | number:'2.'}}</ion-label>
-    </ion-chip>
-  </div>
-  <div style="margin-top:30px">
-    <canvas #trendyChart id="trendyChart"></canvas>
-  </div>
+    <br>
+    <div id="container">
+        <ion-chip class="chipDec">
+            <ion-label color="secondary">Infected: {{totalDataSet.totalCases | number:'2.'}}</ion-label>
+        </ion-chip>
+        <ion-chip class="chipDec">
+            <ion-label color="warning">Death: {{totalDataSet.totalDeaths | number:'2.'}}</ion-label>
+        </ion-chip>
+    </div>
+    <br>
+    <div style="margin-top:30px">
+        <canvas #trendyChart id="trendyChart"></canvas>
+    </div>
 </ion-content>

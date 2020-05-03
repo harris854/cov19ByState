@@ -114,6 +114,13 @@ export class DataServiceService {
 			dataCase: [],
 			dataDeath: []
 		};
+		if(data.allTimeData.length<=noOfDays){
+			noOfDays=data.allTimeData.length-1;
+		}
+		retObj.totalCases=data.allTimeData[0].case-data.allTimeData[noOfDays].case;
+		retObj.totalDeaths=data.allTimeData[0].death-data.allTimeData[noOfDays].death;
+
+
 		_.each(_.slice(data.allTimeData, 0, noOfDays).reverse(), (val) => {
 			console.log(val);
 			retObj.label.push(val.date.format('MM-DD'));
